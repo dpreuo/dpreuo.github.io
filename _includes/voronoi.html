@@ -8,9 +8,12 @@
 <style>
   #voronoi-bg {
     position: fixed;
-    inset: 0;
+    top: 0;
+    left: 0;
     width: 100%;
-    height: 100%;
+    height: 100vh;        /* fallback for older browsers */
+    height: 100lvh;       /* the tallest the window gets on phones (toolbars hidden), so the
+                             background doesn't stretch as the toolbars slide in and out */
     z-index: -1;          /* sits behind all page content */
     pointer-events: none; /* clicks pass through to links */
   }
@@ -69,7 +72,7 @@
   const REPULSION = 0.5;                // how sharply seeds turn away from each other
 
   // Lines
-  const LINE = 'rgb(0, 0, 0)';          // edge colour
+  const LINE = 'rgb(255, 255, 255)';    // edge colour
   const LINE_WIDTH = 3;                 // edge thickness in pixels
 
   // Faces
@@ -123,16 +126,20 @@
     return [dx, dy];
   }
 
-  // The seeds live on a torus the size of the window: leaving one edge
+  // The seeds live on a torus the size of the background: leaving one edge
   // brings a point back in at the opposite edge.
   function resize() {
     const dpr = window.devicePixelRatio || 1;
+    const shown = canvas.getBoundingClientRect();  // the area the canvas is shown in:
+    const newW = shown.width, newH = shown.height; // the window minus any scrollbar
+    // nothing to do if the size hasn't really changed (e.g. phone toolbars sliding)
+    if (pts && newW === w && newH === h && canvas.width === Math.round(newW * dpr)) return;
+
     const oldW = w, oldH = h;
-    const shown = canvas.getBoundingClientRect(); // the area the canvas is shown in:
-    w = shown.width;                              // the window minus any scrollbar
-    h = shown.height;
+    w = newW;
+    h = newH;
     canvas.width = Math.round(w * dpr);
-    canvas.height = Math.round(h * dpr);  
+    canvas.height = Math.round(h * dpr);
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
     // keep the seeds in the same relative positions when the window changes size
     if (pts && oldW && oldH) {
