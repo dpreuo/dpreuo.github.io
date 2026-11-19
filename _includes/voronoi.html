@@ -19,7 +19,7 @@
   }
 
   /* The page background goes on <html> so the canvas shows through <body> */
-  html { background: #fff; overscroll-behavior-y: none; }  /* no bounce past the page ends on phones */
+  html { background: rgb(40, 99, 100); }  /* colour shows only at screen edges on phones; no bounce past the page ends */
   body { background: transparent; }
 
   /* Always reserve room for the scrollbar, so short pages (no scrollbar) and
@@ -130,6 +130,12 @@
   // brings a point back in at the opposite edge.
   function resize() {
     const dpr = window.devicePixelRatio || 1;
+    // On phones and tablets, make the background as tall as the whole screen,
+    // so it still reaches the bottom when the browser's toolbars shrink away
+    // while scrolling (the part hidden behind the toolbars just isn't seen)
+    if (window.matchMedia('(pointer: coarse)').matches) {
+      canvas.style.height = Math.max(window.screen.height, window.innerHeight) + 'px';
+    }
     const shown = canvas.getBoundingClientRect();  // the area the canvas is shown in:
     const newW = shown.width, newH = shown.height; // the window minus any scrollbar
     // nothing to do if the size hasn't really changed (e.g. phone toolbars sliding)
