@@ -10,7 +10,7 @@ layout: default
     align-items: start;
     margin-bottom: 1.5em;
     padding: 1em;
-    background: rgba(255, 255, 255, 0.75); /* keeps text readable over the background */
+    background: rgba(255, 255, 255, 0.3); /* keeps text readable over the background */
     border-radius: 6px;
   }
   .pub-image img,
@@ -34,7 +34,7 @@ layout: default
 
 ## About Me
 
-<img class="profile-picture" src="images/headshot.jpeg">
+<img class="profile-picture" src="images/headshot.jpg">
 
 I am a theoretical physicist, currently working as a postdoc in the group of [Adolfo Grushin](https://www.ikerbasque.net/en/adolfo-g-grushin) at the Donostia International Physics Center in San Sebastian / Donostia.
 

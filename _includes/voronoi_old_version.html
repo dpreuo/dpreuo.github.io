@@ -1,0 +1,321 @@
+<canvas id="voronoi-bg" aria-hidden="true"></canvas>
+
+<style>
+  #voronoi-bg {
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;          /* sits behind all page content */
+    pointer-events: none; /* clicks pass through to links */
+  }
+  /* The page background goes on <html> so the canvas shows through <body> */
+  html { background: #fff; }
+  body { background: transparent; }
+
+  /* Always reserve room for the scrollbar, so short pages (no scrollbar) and
+     long pages (scrollbar) put the content in exactly the same place */
+  html { overflow-y: scroll; }
+
+  /* Crossfade smoothly between pages instead of flashing, in browsers that
+     support it (others just load pages normally) */
+  @view-transition { navigation: auto; }
+
+  /* Semi-transparent white panel behind the page text, for readability.
+     Wrap the page content in <div class="text-panel"> ... </div> in
+     _layouts/default.html to use it. Change the last number (0.8) to make
+     it more or less see-through. */
+  .text-panel {
+    margin-top: 1.5em;
+    background: rgba(255, 255, 255, 0.5);
+    -webkit-backdrop-filter: blur(3px);
+    backdrop-filter: blur(3px);          /* softly blurs the cells behind the text */
+    padding: 1.5em 2em;
+    border-radius: 8px;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.02);
+  }
+  @media (max-width: 600px) {
+    .text-panel { padding: 1em; border-radius: 0; }
+  }
+</style>
+
+<script src="https://cdn.jsdelivr.net/npm/d3-delaunay@6.0.4/dist/d3-delaunay.min.js"></script>
+<script>
+(function () {
+  // ---- Settings to play with ----
+  const N = 80;                               // number of seed points
+  const SPEED = .1;                         // drift speed in pixels per frame
+  const MIN_SPACING = 0.6;                    // seeds push each other away when closer than this
+                                              // fraction of the typical spacing (0 turns it off)
+  const REPULSION = 0.5;                     // how sharply seeds turn away from each other
+  const LINE = 'rgba(206, 218, 222, 1)';     // edge colour (your CV blue, very faint)
+  const LINE_WIDTH = 3;                       // edge thickness
+  const SHOW_POINTS = false;                  // set true to draw the seed points too
+  const FILL_FACES = true;                    // colour each face
+  const FILL_SATURATION = 80;                 // pastel colours: medium saturation (%)...
+  const FILL_LIGHTNESS = 80;                  // ...and high lightness (%)
+  const FILL_OPACITY = 0.2;                   // face opacity
+  const USE_CENTROIDS = false;                 // true: after building the Voronoi diagram, move each
+                                              // vertex to the centre of mass of its three seed points;
+                                              // false: leave it as the ordinary Voronoi diagram
+
+  const canvas = document.getElementById('voronoi-bg');
+  const ctx = canvas.getContext('2d');
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let w, h, pts;
+  let R; // repulsion radius in pixels, set from the window size
+
+  // Typical distance between neighbouring seeds is about sqrt(area / N)
+  function updateRadius() {
+    R = MIN_SPACING * Math.sqrt((w * h) / N);
+  }
+
+  // Shortest separation between two seeds on the torus (minimum image)
+  function separation(a, b) {
+    let dx = a.x - b.x, dy = a.y - b.y;
+    dx -= w * Math.round(dx / w);
+    dy -= h * Math.round(dy / h);
+    return [dx, dy];
+  }
+
+  // The seeds live on a torus the size of the window: leaving one edge
+  // brings a point back in at the opposite edge.
+  function resize() {
+    const dpr = window.devicePixelRatio || 1;
+    const oldW = w, oldH = h;
+    w = window.innerWidth;
+    h = window.innerHeight;
+    canvas.width = w * dpr;
+    canvas.height = h * dpr;
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    // keep the seeds in the same relative positions when the window changes size
+    if (pts && oldW && oldH) {
+      for (const p of pts) { p.x *= w / oldW; p.y *= h / oldH; }
+    }
+    updateRadius();
+  }
+
+  // Start with the seeds already spread out: each new seed is placed at a
+  // random spot at least R away from the others (giving up after many tries,
+  // so it can never get stuck).
+  function init() {
+    pts = [];
+    for (let n = 0; n < N; n++) {
+      let p;
+      for (let attempt = 0; attempt < 500; attempt++) {
+        p = { x: Math.random() * w, y: Math.random() * h };
+        if (pts.every(q => Math.hypot(...separation(p, q)) >= R)) break;
+      }
+      const angle = Math.random() * 2 * Math.PI;
+      const hue = Math.floor(Math.random() * 360);
+      p.vx = Math.cos(angle) * SPEED;
+      p.vy = Math.sin(angle) * SPEED;
+      // each seed keeps its own random pastel colour for its face
+      p.color = `hsla(${hue}, ${FILL_SATURATION}%, ${FILL_LIGHTNESS}%, ${FILL_OPACITY})`;
+      pts.push(p);
+    }
+  }
+
+  // ---- Carry the background over between pages ----
+  // When the visitor leaves a page, the seeds are saved in the browser tab's
+  // session storage; the next page picks them up and carries on from there.
+  // Positions are stored as fractions of the window size. A new tab, or a
+  // change to N or the colour settings, starts a fresh random pattern.
+  const STORE_KEY = 'voronoi-bg-state';
+  const SETTINGS = `${N}|${FILL_SATURATION}|${FILL_LIGHTNESS}|${FILL_OPACITY}`;
+
+  function saveState() {
+    try {
+      sessionStorage.setItem(STORE_KEY, JSON.stringify({
+        settings: SETTINGS,
+        pts: pts.map(p => [p.x / w, p.y / h, p.vx, p.vy, p.color])
+      }));
+    } catch (e) { /* storage unavailable: just start fresh next time */ }
+  }
+
+  function loadState() {
+    try {
+      const saved = JSON.parse(sessionStorage.getItem(STORE_KEY));
+      if (!saved || saved.settings !== SETTINGS || saved.pts.length !== N) return false;
+      pts = saved.pts.map(([x, y, vx, vy, color]) => ({ x: x * w, y: y * h, vx, vy, color }));
+      return true;
+    } catch (e) {
+      return false;
+    }
+  }
+
+  // Seeds closer than R push each other apart, more strongly the closer they
+  // are. The push only turns a seed's direction: its speed is reset to SPEED
+  // afterwards, so seeds glance off each other like soft billiard balls
+  // instead of piling up or speeding up.
+  function step() {
+    if (R > 0) {
+      for (let i = 0; i < pts.length; i++) {
+        for (let j = i + 1; j < pts.length; j++) {
+          const [dx, dy] = separation(pts[i], pts[j]);
+          const d = Math.hypot(dx, dy);
+          if (d >= R || d === 0) continue;
+          const f = REPULSION * (1 - d / R) / d; // stronger when closer
+          pts[i].vx += f * dx; pts[i].vy += f * dy;
+          pts[j].vx -= f * dx; pts[j].vy -= f * dy;
+        }
+      }
+    }
+    for (const p of pts) {
+      const v = Math.hypot(p.vx, p.vy) || 1;
+      p.vx *= SPEED / v;
+      p.vy *= SPEED / v;
+      p.x = (p.x + p.vx + w) % w;
+      p.y = (p.y + p.vy + h) % h;
+    }
+  }
+
+  // Periodic images: the seeds plus their copies shifted by one window
+  // width and/or height in every direction (a 3 x 3 block of tiles).
+  // The diagram inside the central tile is then the periodic Voronoi diagram.
+  function periodicPoints() {
+    const out = [];
+    for (let i = -1; i <= 1; i++) {
+      for (let j = -1; j <= 1; j++) {
+        for (const p of pts) out.push([p.x + i * w, p.y + j * h]);
+      }
+    }
+    return out;
+  }
+
+  // ---- Step 1: build the Voronoi diagram as a graph ----
+  // Each Voronoi vertex belongs to one Delaunay triangle and starts at that
+  // triangle's circumcentre. Each Voronoi edge joins the vertices of two
+  // triangles that share a side.
+  function buildVoronoi(delaunay) {
+    const { triangles, halfedges } = delaunay;
+    const nT = triangles.length / 3;
+    const cc = delaunay.voronoi([-w, -h, 2 * w, 2 * h]).circumcenters;
+
+    const vx = new Float64Array(nT);
+    const vy = new Float64Array(nT);
+    for (let t = 0; t < nT; t++) {
+      vx[t] = cc[2 * t];
+      vy[t] = cc[2 * t + 1];
+    }
+
+    const edges = []; // pairs of vertex indices [t, u]
+    for (let e = 0; e < halfedges.length; e++) {
+      const o = halfedges[e];
+      if (o > e) edges.push([Math.floor(e / 3), Math.floor(o / 3)]);
+    }
+    return { vx, vy, edges };
+  }
+
+  // ---- Step 2: move each vertex to the centre of mass of its three seeds ----
+  // Only the vertex positions change; the edge list is untouched, so the
+  // connectivity of the diagram is exactly preserved. The three seeds are
+  // the periodic images nearest the vertex, so the centre of mass is taken
+  // correctly across the window edges.
+  function moveVerticesToCentroids(graph, delaunay) {
+    const { points, triangles } = delaunay;
+    for (let t = 0; t < graph.vx.length; t++) {
+      const a = triangles[3 * t], b = triangles[3 * t + 1], c = triangles[3 * t + 2];
+      graph.vx[t] = (points[2 * a] + points[2 * b] + points[2 * c]) / 3;
+      graph.vy[t] = (points[2 * a + 1] + points[2 * b + 1] + points[2 * c + 1]) / 3;
+    }
+  }
+
+  // Fill each face with its seed's colour. The face around a seed is the
+  // polygon through the vertices of the triangles surrounding that seed,
+  // taken in order. It uses the graph's current vertex positions, so it
+  // follows the moved vertices from step 2. Periodic copies of a seed share
+  // its colour, so faces match up across the window edges.
+  function fillFaces(graph, delaunay) {
+    const { halfedges, inedges } = delaunay;
+    const { vx, vy } = graph;
+    for (let i = 0; i < inedges.length; i++) {
+      const start = inedges[i];
+      if (start === -1) continue;
+
+      // walk around seed i, collecting the triangles (= vertices) in order
+      const face = [];
+      let e = start;
+      let closed = true;
+      do {
+        face.push(Math.floor(e / 3));
+        const out = e % 3 === 2 ? e - 2 : e + 1; // next half-edge, leaving seed i
+        e = halfedges[out];
+        if (e === -1) { closed = false; break; }  // outer edge of the 3 x 3 block: skip
+      } while (e !== start);
+      if (!closed) continue;
+
+      // skip faces that don't reach into the window
+      let minX = Infinity, maxX = -Infinity, minY = Infinity, maxY = -Infinity;
+      for (const t of face) {
+        minX = Math.min(minX, vx[t]); maxX = Math.max(maxX, vx[t]);
+        minY = Math.min(minY, vy[t]); maxY = Math.max(maxY, vy[t]);
+      }
+      if (maxX < 0 || minX > w || maxY < 0 || minY > h) continue;
+
+      ctx.beginPath();
+      ctx.moveTo(vx[face[0]], vy[face[0]]);
+      for (let k = 1; k < face.length; k++) ctx.lineTo(vx[face[k]], vy[face[k]]);
+      ctx.closePath();
+      ctx.fillStyle = pts[i % N].color;
+      ctx.fill();
+    }
+  }
+
+  // Draw only edges that touch the window; the rest are periodic copies.
+  function traceGraph(graph) {
+    const { vx, vy, edges } = graph;
+    for (const [t, u] of edges) {
+      const x1 = vx[t], y1 = vy[t], x2 = vx[u], y2 = vy[u];
+      if (Math.max(x1, x2) < 0 || Math.min(x1, x2) > w ||
+          Math.max(y1, y2) < 0 || Math.min(y1, y2) > h) continue;
+      ctx.moveTo(x1, y1);
+      ctx.lineTo(x2, y2);
+    }
+  }
+
+  function draw() {
+    ctx.clearRect(0, 0, w, h);
+    const delaunay = d3.Delaunay.from(periodicPoints());
+
+    const graph = buildVoronoi(delaunay);                        // step 1
+    if (USE_CENTROIDS) moveVerticesToCentroids(graph, delaunay); // step 2
+
+    if (FILL_FACES) fillFaces(graph, delaunay);
+
+    ctx.beginPath();
+    traceGraph(graph);
+    ctx.strokeStyle = LINE;
+    ctx.lineWidth = LINE_WIDTH;
+    ctx.stroke();
+
+    if (SHOW_POINTS) {
+      ctx.beginPath();
+      for (const p of pts) {
+        ctx.moveTo(p.x + 1.5, p.y);
+        ctx.arc(p.x, p.y, 1.5, 0, 2 * Math.PI);
+      }
+      ctx.fillStyle = LINE;
+      ctx.fill();
+    }
+  }
+
+  function loop() {
+    step();
+    draw();
+    requestAnimationFrame(loop);
+  }
+
+  resize();
+  if (!loadState()) init();
+  window.addEventListener('resize', () => { resize(); draw(); });
+  window.addEventListener('pagehide', saveState);
+
+  // Visitors who have asked their system for less motion get a still diagram
+  if (reduceMotion) {
+    draw();
+  } else {
+    loop();
+  }
+})();
+</script>
