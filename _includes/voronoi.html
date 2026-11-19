@@ -19,7 +19,7 @@
   }
 
   /* The page background goes on <html> so the canvas shows through <body> */
-  html { background: #fff; }
+  html { background: #fff; overscroll-behavior-y: none; }  /* no bounce past the page ends on phones */
   body { background: transparent; }
 
   /* Always reserve room for the scrollbar, so short pages (no scrollbar) and
