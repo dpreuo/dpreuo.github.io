@@ -2,42 +2,64 @@
 layout: default
 ---
 
+<style>
+  .pub {
+    display: grid;
+    grid-template-columns: 160px 1fr;
+    gap: 1.2em;
+    align-items: start;
+    margin-bottom: 1.5em;
+    padding: 1em;
+    background: rgba(255, 255, 255, 0.75); /* keeps text readable over the background */
+    border-radius: 6px;
+  }
+  .pub-image img,
+  .pub-image .pub-noimage {
+    width: 100%;
+    border-radius: 4px;
+  }
+  .pub-image .pub-noimage {
+    aspect-ratio: 4 / 3;
+    background: rgba(61, 90, 128, 0.08);
+  }
+  .pub-title { margin: 0 0 0.3em; font-weight: bold; }
+  .pub-meta { margin: 0 0 0.6em; font-size: 0.9em; }
+  .pub-blurb p { margin: 0; }
+  /* on narrow screens, put the image above the text */
+  @media (max-width: 600px) {
+    .pub { grid-template-columns: 1fr; }
+    .pub-image { max-width: 240px; }
+  }
+</style>
+
 ## About Me
 
-<img class="profile-picture" src="sherlock.jpg">
+<img class="profile-picture" src="images/headshot.jpeg">
 
-I am theoretical physicist, currently working as a postdoc in the group of [Adolfo Grushin](https://www.ikerbasque.net/en/adolfo-g-grushin) at the Donostia International Physics Center in San Sebastian / Donostia.
+I am a theoretical physicist, currently working as a postdoc in the group of [Adolfo Grushin](https://www.ikerbasque.net/en/adolfo-g-grushin) at the Donostia International Physics Center in San Sebastian / Donostia.
 
-Most of my work is about understanding topological matter in real space. 
+
 ## Research Interests
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam finibus ipsum ac erat aliquam dapibus. Vestibulum vehicula placerat ex, a consectetur odio pharetra quis. Mauris id urna ante. Fusce pharetra diam ac nisi aliquet, vel egestas ex iaculis. Pellentesque laoreet cursus tellus sed pellentesque. Praesent a rhoncus elit. Nunc ipsum nisl, consequat sit amet pretium quis, gravida id ipsum.
+Most of my work is about understanding topological matter in real space.
 
-## Publications
+## Recent Works
 
-1. F.Bar, J.Doe: Effects of having a placeholder of a name
-2. S.Holmes, J.Watson: Consequences of living with a sociopath in London
-
-<!-- ## Typography
-
-This is a [link](http://google.com). Something *italics* and something **bold**.
-
-Here is a table
-
-Year | Award | Category
------|-------|--------
-2014 | Emmy  | Won Outstanding Lead Actor in a miniseries or a movie
-2015 | BAFTA | Nominated for Best Leading Actor for Sherlock
-2014 | Satellite | Won Best Actor miniseries or television film
-
-Here is a horizontal rule -->
-
-
-<!-- Here is a blockquote
-
-> To a great mind, nothing is little
-
-## References
-
-* Foo Bar: Head of Department, Placeholder Names, Lorem
-* John Doe: Associate Professor, Department of Computer Science, Ipsum -->
+<div class="pubs">
+{%- for pub in site.data.publications limit: 4 %}
+<div class="pub">
+<div class="pub-image">
+{%- if pub.image %}
+<img src="{{ pub.image }}" alt="Figure from {{ pub.title | strip_html }}">
+{%- else %}
+<div class="pub-noimage"></div>
+{%- endif %}
+</div>
+<div class="pub-text">
+<p class="pub-title"><a href="{{ pub.link }}">{{ pub.title }}</a></p>
+<p class="pub-meta">{{ pub.authors }}<br><em>{{ pub.journal }}</em> ({{ pub.year }})</p>
+<div class="pub-blurb">{{ pub.blurb | markdownify }}</div>
+</div>
+</div>
+{%- endfor %}
+</div>

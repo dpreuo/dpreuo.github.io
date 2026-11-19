@@ -62,7 +62,7 @@
             <a id="author-name" class="alignable pull-left" href="{{ site.url }}{{ site.baseurl }}">{{ site.title }}</a>
             <ul id="navlist" class="alignable pull-right navbar-ul">
                 {% for x in site.nav %}
-                    {% if x.name == "Resume" %}
+                    {% if x.name == "Resume-PDF" %}
                         <li class="alignable pull-left nav-list"><a target="_blank" href="{{ x.link }}">{{ x.name }}</a>
                     {% else %}
                         <li class="alignable pull-left nav-list"><a href="{{ x.link }}">{{ x.name }}</a>
@@ -77,9 +77,9 @@
         <div style="clear:both"></div>
         <hr>
         {% if page.is_contact == true %}
-            <div class="container content contact">
+            <div class="container content contact text-panel">
         {% else %}
-            <div class="container content">
+            <div class="container content text-panel">
         {% endif %}
                 {{ content }}
                 {% if site.footer == true %}
@@ -100,6 +100,7 @@
           ga('send', 'pageview');
         </script>
     {% endif %}
+    {% include voronoi.html %}
 </body>
 <footer>
 </footer>

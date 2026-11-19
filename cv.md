@@ -4,28 +4,9 @@ title: CV
 ---
 
 **Postdoctoral Researcher**, Donostia International Physics Center, San Sebastián, Spain  
-[peru.dornellas@gmail.com](mailto:peru.dornellas@gmail.com) | [github.com/dpreuo](https://github.com/dpreuo) | [Download PDF version](/resume.pdf)
+[peru.dornellas@gmail.com](mailto:peru.dornellas@gmail.com) | [github.com/dpreuo](https://github.com/dpreuo){:target="_blank"} | [Download PDF version](/images/resume.pdf){:target="_blank"}
 
-## Research Interests
-
-### Topology in Non-Crystalline Matter
-
-- Spectral localiser, systematic real-space invariants for crystalline and non-crystalline phases
-- Local topological markers, local conductivity
-- Structural disorder as a resource for stabilising and enhancing topological phases
-- Fractional Hall effect, coupled wire constructions, bosonisation, fractons
-
-### Frustrated Magnetism and Spin Liquids
-
-- Kitaev model on amorphous lattices, chiral spin liquids, Z<sub>2</sub> gauge theory, Majorana fermions
-- Kitaev–Heisenberg models, parton mean field theory, bond operator formalism, topological triplons
-- Dimer models, U(1) spin liquids
-
-### Altermagnetism
-
-- Spontaneous altermagnetism in amorphous systems from spin-orbital symmetry breaking
-- Topologically protected surface altermagnetism on antiferromagnets, Dirac and nodal line semimetals
-
+---
 ## Employment
 
 ### Postdoctoral Research Associate
@@ -49,7 +30,7 @@ title: CV
 
 *University of Cambridge, Merit*, Oct 2018 – Jun 2019
 
-- One-year theory master’s programme specialising in Quantum Field Theory, Statistical Field Theory and Quantum Information
+<!-- - One-year theory master’s programme specialising in Quantum Field Theory, Statistical Field Theory and Quantum Information -->
 - Thesis supervised by Professor Nicholas Manton: *Kinks with Long-Range Tails*, published in J. Phys. Commun.
 
 ### MPhys in Physics
@@ -59,6 +40,7 @@ title: CV
 - Awarded the AJ Cooper Scholarship and Mary Somerville Award
 - Master’s project in the Optical Quantum Technologies Group, supervised by Dr. Brian Smith: *Optical Quantum State Generation and Tomography*
 
+---
 ## Publications
 
 \* Equal contribution
@@ -66,7 +48,7 @@ title: CV
 - **d’Ornellas P**, Chaou AY, Grushin AGG, *A Unified Perspective On Non-interacting Topology*, [arXiv:2609.07775](https://arxiv.org/abs/2609.07775) (2026)
 - Gómez Paz L, **d’Ornellas P**, Grushin AGG, *Leveraging Structural Disorder to Enhance Topological Phases*, [arXiv:2606.02476](https://arxiv.org/abs/2606.02476) (2026)
 - Leeb V\*, **d’Ornellas P**\*, De Juan F, Grushin AGG, *Topologically Protected Surface Altermagnetism on Antiferromagnets*, [arXiv:2602.10108](https://arxiv.org/abs/2602.10108) (2026), accepted in Phys. Rev. Lett.
-- **d’Ornellas P**\*, Leeb V\*, Grushin AGG, Knolle J, *Altermagnetism Without Crystal Symmetry*, [Phys. Rev. B 113, 024426](https://doi.org/10.1103/zqnk-153f) (2025)
+- **d’Ornellas P**\*, Leeb V\*, Grushin AGG, Knolle J, *Altermagnetism Without Crystal Symmetry*, [Phys. Rev. B 113, 024426](https://doi.org/10.1103/zqnk-153f) (2026)
 - Schirmann J\*, **d’Ornellas P**\*, Grushin AGG, *Fractonic Fractional Quantum Hall Effect*, [arXiv:2504.18337](https://arxiv.org/abs/2504.18337) (2025)
 - **d’Ornellas P**, Knolle J, *Kitaev–Heisenberg Model on the Star Lattice: From Chiral Majoranas to Chiral Triplons*, [Phys. Rev. B 109 (9), 094421](https://doi.org/10.1103/PhysRevB.109.094421) (2024)
 - Cassella G\*, **d’Ornellas P**\*, Hodson T\*, Natori WMH, Knolle J, *An Exact Chiral Amorphous Spin Liquid*, [Nat. Commun. 14 (1), 6663](https://www.nature.com/articles/s41467-023-42105-9) (2023)
@@ -75,6 +57,7 @@ title: CV
 - Ashby J, Thiel V, Allgaier M, **d’Ornellas P**, Davis A, Smith B, *Temporal mode transformations by sequential time and frequency phase modulation for applications in quantum information science*, [Opt. Express 28 (25), 38376–38389](https://doi.org/10.1364/OE.410371) (2020)
 - Thiel V, Davis A, Sun K, **d’Ornellas P**, Jin X, Smith B, *Single-photon characterization by two-photon spectral interferometry*, [Opt. Express 28 (13), 19315–19324](https://doi.org/10.1364/OE.396960) (2020)
 
+---
 ## Talks
 
 - Laboratoire de Physique des Solides, Université Paris-Saclay: *A Unified Perspective On Non-interacting Topology* (Oct 2026)
@@ -90,6 +73,8 @@ title: CV
 - DPG 2022, Regensburg: *An Exact Chiral Amorphous Spin Liquid*
 - Imperial College Summer Showcase 2021: *Quantised Bulk Conductivity as a Local Chern Marker*
 
+---
+
 ## Teaching
 
 ### Teaching Assistant, Imperial College London
@@ -98,28 +83,21 @@ title: CV
 
 - Taught weekly problem sheet classes for a fourth-year master’s course, *Quantum Theory of Matter*
 
-### Minds Underground Physics Summer School
+---
 
-Summer 2021
-
-- Created and presented a six-lecture summer school on quantum computing for students moving from school to university
 
 ## Skills
 
 - **Software:** Python, NumPy/SciPy, Git, LaTeX, C/C++, MATLAB, Photoshop, Illustrator
 - **Languages:** English, Italian, Spanish, French (intermediate)
 
-## Activities
-
-- CMTH Postgraduate Representative, Imperial College London (2020 – 2023)
-- Organised the CMTH internal seminar series (2022 – 2023)
-
+<!-- 
+---
 ## Referees
 
 **Dr. Adolfo Grushin**, Donostia International Physics Center, Donostia-San Sebastián
 
 **Prof. Johannes Knolle**, Department of Physics, Technical University of Munich
 
-**Dr. Derek Lee**, Department of Physics, Imperial College London
+**Dr. Derek Lee**, Department of Physics, Imperial College London -->
 
-Contact details available on request.

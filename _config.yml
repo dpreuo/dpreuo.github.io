@@ -1,4 +1,4 @@
-title: Researcher
+title: Peru d'Ornellas
 url: "https://dpreuo.github.io"
 baseurl: ""
 
@@ -7,9 +7,9 @@ markdown: kramdown
 
 tracking_id: #
 
-footer: yes
-footer_url: "https://github.com/ankitsultana"
-footer_text: "Page design by Ankit Sultana"
+# footer: yes
+# footer_url: "https://github.com/ankitsultana"
+# footer_text: "Page design by Ankit Sultana"
 
 sass:
     style: compressed
@@ -20,5 +20,7 @@ nav:
    link: "/"
  - name: "Resume"
    link: "cv"
+ - name: "Publications"
+   link: "publications"
  - name: "Contact"
    link: "contact"

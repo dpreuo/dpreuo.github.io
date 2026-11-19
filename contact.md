@@ -3,24 +3,14 @@ layout: default
 is_contact: true
 ---
 
-* Email: [foo@xyz.com](mailto:foo@xyz.com)
+* Email: [peru.dornellas@dipc.org](mailto:peru.dornellas@dipc.org)
 
-* Phone: [+91-123123](tel:+91-123123)
-
----
-
-## Mailing Address
-
-> 221B, Baker Street
->
-> London
->
-> United Kingdom
+<!-- * Phone: [+34-696964941](tel:+91-123123) -->
 
 ---
 
-## Social
-
-1. [Facebook](#)
-2. [Twitter](#)
-3. [Google+](#)
+## Address
+Donostia International Physics Center (DIPC)
+Paseo Manuel de Lardizábal, 4, 20018 
+Donostia / San Sebastián
+Gipuzkoa, Spain
