@@ -10,110 +10,91 @@
 # Please check and rewrite each one before publishing.
 
 - title: "A Unified Perspective On Non-interacting Topology"
-  authors: "<strong>d’Ornellas P</strong>, Chaou AY, Grushin AGG"
+  authors: "Chaou AY,  Grushin AGG, <strong>d'Ornellas P</strong>"
   journal: "arXiv:2609.07775"
   year: 2026
   link: "https://arxiv.org/abs/2609.07775"
-  # image: "/images/pubs/unified-topology.png"
+  image: "images/pubs/localizer.png"
   blurb: >
-    Topological materials are usually classified using tools that assume a
-    perfect crystal. This paper brings these approaches together into a single
-    framework that also works when there is no crystal order at all.
+    Calculating invariants for systems with crystalline symmetries is hard, and many materials have very complicated or even disputed invariants. Here we found that the spectral localizer is a simple  *real space* method for making an invariant for any system in any symmetry class, and show that it works for several such disputed systems. 
 
 - title: "Leveraging Structural Disorder to Enhance Topological Phases"
-  authors: "Gómez Paz L, <strong>d’Ornellas P</strong>, Grushin AGG"
+  authors: "Gómez Paz L, <strong>d'Ornellas P</strong>, Grushin AGG"
   journal: "arXiv:2606.02476"
   year: 2026
   link: "https://arxiv.org/abs/2606.02476"
-  # image: "/images/pubs/structural-disorder.png"
+  image: "images/pubs/tai.png"
   blurb: >
-    Disorder is usually thought of as the enemy of topological phases. We show
-    that the right kind of disorder, randomness in where the atoms sit, can
-    instead stabilise and strengthen them.
+    Disorder is often thought of as the enemy of topological phases. Here we showed
+    that the right kind of *structural* disorder, randomness in where the atoms sit, can
+    sometimes stabilise and strengthen topology in spin-Hall systems.  
 
 - title: "Topologically Protected Surface Altermagnetism on Antiferromagnets"
-  authors: "Leeb V*, <strong>d’Ornellas P*</strong>, De Juan F, Grushin AGG"
+  authors: "Leeb V*, <strong>d'Ornellas P*</strong>, De Juan F, Grushin AGG"
   journal: "arXiv:2602.10108, accepted in Phys. Rev. Lett."
   year: 2026
   link: "https://arxiv.org/abs/2602.10108"
-  # image: "/images/pubs/surface-altermagnetism.png"
+  image: "/images/pubs/surface.png"
   blurb: >
-    Altermagnets are a newly discovered type of magnet: like antiferromagnets
-    they have no overall magnetisation, but their electrons behave as if they
-    did. We show that the surfaces of some ordinary antiferromagnets act as
-    altermagnets, and that this surface effect is protected by topology.
+    The surface of a material can sit in a different symmetry class to the bulk, and so phases can appear at the surface that are forbidden in the bulk. Here we showed that it is possible to find altermagnetism on the surface of an antiferromagnet, and we identified a candidate material in CuMnAs.
 
 - title: "Altermagnetism Without Crystal Symmetry"
-  authors: "<strong>d’Ornellas P*</strong>, Leeb V*, Grushin AGG, Knolle J"
+  authors: "<strong>d'Ornellas P*</strong>, Leeb V*, Grushin AGG, Knolle J"
   journal: "Phys. Rev. B 113, 024426"
   year: 2025
   link: "https://doi.org/10.1103/zqnk-153f"
-  # image: "/images/pubs/amorphous-altermagnetism.png"
+  image: "/images/pubs/amorphous am.png"
   blurb: >
-    Altermagnetism was thought to need particular crystal symmetries. We show
-    it can appear spontaneously in amorphous materials, which have no crystal
-    structure at all.
+    Altermagnetism was thought to need particular crystal symmetries. Here we built a very simple model for an altermagnet, and showed that it gives spontaneous altermagnetism even in materials with no crystal symmetry at all.
 
 - title: "Fractonic Fractional Quantum Hall Effect"
-  authors: "Schirmann J*, <strong>d’Ornellas P*</strong>, Grushin AGG"
+  authors: "Schirmann J*, <strong>d'Ornellas P*</strong>, Grushin AGG"
   journal: "arXiv:2504.18337"
   year: 2025
   link: "https://arxiv.org/abs/2504.18337"
-  # image: "/images/pubs/fractonic-fqhe.png"
+  image: "/images/pubs/wires.png"
   blurb: >
-    Fractons are exotic particles that cannot move freely on their own. We show
-    how fracton behaviour can emerge in the fractional quantum Hall effect, one
-    of the best-studied phases of strongly interacting electrons.
+    This project started as an effort to build a disordered fractional Hall phase. We found that when you try to glue differently fractionalised Hall droplets together it can create *fractonic* excitations which are constrained to only live at the interface. We spent a lot of time classifying every possible type of interface and fracton that can emerge from this setup.
 
-- title: "Kitaev–Heisenberg Model on the Star Lattice: From Chiral Majoranas to Chiral Triplons"
-  authors: "<strong>d’Ornellas P</strong>, Knolle J"
+- title: "Kitaev-Heisenberg Model on the Star Lattice: From Chiral Majoranas to Chiral Triplons"
+  authors: "<strong>d'Ornellas P</strong>, Knolle J"
   journal: "Phys. Rev. B 109 (9), 094421"
   year: 2024
   link: "https://doi.org/10.1103/PhysRevB.109.094421"
-  # image: "/images/pubs/star-lattice.png"
+  image: "/images/pubs/kitaev heisenberg.png"
   blurb: >
-    The Kitaev model describes a quantum spin liquid whose excitations are
-    Majorana fermions. On the star lattice we follow what happens as more
-    conventional magnetic interactions are added, and find a transition to a
-    phase whose excitations are topological triplons instead.
+    The Kitaev spin liquid seems rather indifferent to the types of lattices it is constructed on, but the phases that compete with it are often very sensitive to geometric frustration. We tested whether the Kitaev phase could be more stable in a system where antiferromagnetic ordering was impossible. It didn't work! Instead we found the emergence of a topological triplon phase which was interesting in its own right.
 
 - title: "An Exact Chiral Amorphous Spin Liquid"
-  authors: "Cassella G*, <strong>d’Ornellas P*</strong>, Hodson T*, Natori WMH, Knolle J"
+  authors: "Cassella G*, <strong>d'Ornellas P*</strong>, Hodson T*, Natori WMH, Knolle J"
   journal: "Nat. Commun. 14 (1), 6663"
   year: 2023
   link: "https://www.nature.com/articles/s41467-023-42105-9"
-  # image: "/images/pubs/amorphous-spin-liquid.png"
+  image: "/images/pubs/kitaev.png"
   blurb: >
-    Quantum spin liquids are magnets whose spins never settle into an ordered
-    pattern. We show that the Kitaev model, one of the few exactly solvable
-    examples, still works on random amorphous lattices, and that there it forms
-    a chiral spin liquid.
+    We showed that the Kitaev model, one of the few exactly solvable examples of a quantum spin liquid, still works on random trivalent amorphous lattices, where it forms a chiral spin liquid that is gapped even without a magnetic field. 
 
 - title: "Quantised Bulk Conductivity as a Local Chern Marker"
-  authors: "<strong>d’Ornellas P</strong>, Barnett R, Lee DKK"
+  authors: "<strong>d'Ornellas P</strong>, Barnett R, Lee DKK"
   journal: "Phys. Rev. B 106 (15), 155124"
   year: 2022
   link: "https://link.aps.org/doi/10.1103/PhysRevB.106.155124"
-  # image: "/images/pubs/local-chern-marker.png"
+  image: "/images/pubs/crosshair.png"
   blurb: >
     The Chern number that identifies a topological insulator is normally
-    defined for a perfect, infinite crystal. We show it can be measured locally,
-    as a quantised conductivity inside the material, so it also works for
-    disordered systems.
+    defined for a perfect, infinite crystal. We show it can be measured as a localised quantised conductivity in the bulk of a material, where the quantisation remains even for disordered systems.
 
 - title: "Forces Between Kinks in φ<sup>8</sup> Theory"
-  authors: "<strong>d’Ornellas P</strong>"
+  authors: "<strong>d'Ornellas P</strong>"
   journal: "J. Phys. Commun. 4 (5), 055014"
   year: 2020
   link: "https://doi.org/10.1088/2399-6528/ab90c2"
   # image: "/images/pubs/kinks.png"
   blurb: >
-    Kinks are stable, particle-like solutions in field theory. In φ<sup>8</sup>
-    theory they can have long-range tails, and this paper works out the forces
-    between them.
+    This was a master's project while I was taking part III in Cambridge. I studied the kinks that emerge in a modified classical field theory where they can have very long-ranged interactions, and worked out the the forces between them exactly. This paper should have been 'On the attractiveness of kinks' but I was too scared to put an innuendo in a paper title back then.
 
 - title: "Temporal mode transformations by sequential time and frequency phase modulation for applications in quantum information science"
-  authors: "Ashby J, Thiel V, Allgaier M, <strong>d’Ornellas P</strong>, Davis A, Smith B"
+  authors: "Ashby J, Thiel V, Allgaier M, <strong>d'Ornellas P</strong>, Davis A, Smith B"
   journal: "Opt. Express 28 (25), 38376–38389"
   year: 2020
   link: "https://doi.org/10.1364/OE.410371"
@@ -124,7 +105,7 @@
     time and frequency modulations.
 
 - title: "Single-photon characterization by two-photon spectral interferometry"
-  authors: "Thiel V, Davis A, Sun K, <strong>d’Ornellas P</strong>, Jin X, Smith B"
+  authors: "Thiel V, Davis A, Sun K, <strong>d'Ornellas P</strong>, Jin X, Smith B"
   journal: "Opt. Express 28 (13), 19315–19324"
   year: 2020
   link: "https://doi.org/10.1364/OE.396960"

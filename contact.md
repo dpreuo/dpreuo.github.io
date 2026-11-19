@@ -10,7 +10,9 @@ is_contact: true
 ---
 
 ## Address
-Donostia International Physics Center (DIPC)
-Paseo Manuel de Lardizábal, 4, 20018 
-Donostia / San Sebastián
+
+I work in room 310 in building 5, \\ 
+Donostia International Physics Center (DIPC)\\
+Paseo Manuel de Lardizábal, 4, 20018 \\
+Donostia / San Sebastián\\
 Gipuzkoa, Spain
